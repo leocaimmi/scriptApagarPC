@@ -1,18 +1,12 @@
 package org.example;
 
+import GUI.Pantalla;
 import modelo.HttpServerWithShutdown;
 
 public class Main {
     public static void main(String[] args)
     {
-       HttpServerWithShutdown httpServerWithShutdown = new HttpServerWithShutdown();
-        try {
-            httpServerWithShutdown.iniciar();
-        } catch (Exception e)
-        {
-            throw new RuntimeException(e);
-        }
-
-
+        Pantalla pantalla = new Pantalla();
+        pantalla.setVisible(true);
     }
 }
