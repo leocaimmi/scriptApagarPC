@@ -15,7 +15,7 @@ import io.github.cdimascio.dotenv.Dotenv;
 
 public class HttpServerWithShutdown {
     // Cargar las variables de entorno desde el archivo .env
-    Dotenv dotenv = Dotenv.configure().directory("scriptApagarPC\\.env").load();
+    Dotenv dotenv = Dotenv.configure().directory("C:\\Users\\Gc\\Desktop\\programacion\\ApagarPCjava\\scriptApagarPC\\.env").load();
 
     // Obtener el valor de SERVER_IP y PORT desde las variables de entorno
     String serverIp = dotenv.get("SERVER_IP");
