@@ -1,4 +1,4 @@
-package GUI;
+package GUI.PopUp;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

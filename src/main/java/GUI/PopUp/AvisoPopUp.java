@@ -1,4 +1,4 @@
-package GUI;
+package GUI.PopUp;
 
 public class AvisoPopUp extends javax.swing.JDialog {
     //atributos
