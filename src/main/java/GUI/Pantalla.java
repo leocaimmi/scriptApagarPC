@@ -4,6 +4,8 @@
  */
 package GUI;
 
+import modelo.HttpServerWithShutdown;
+
 import javax.swing.*;
 
 /**
@@ -22,6 +24,7 @@ public class Pantalla extends javax.swing.JFrame {
      */
     public Pantalla() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -92,7 +95,16 @@ public class Pantalla extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)
     {
-
+        //si el boton se aprieta se abre el servidor http
+        HttpServerWithShutdown httpServerWithShutdown = new HttpServerWithShutdown();
+        try
+        {
+            httpServerWithShutdown.iniciar();
+        } catch (Exception e)
+        {
+            PopUp popUp = new PopUp(this,true,e.getMessage()+" No se pudo abrir el servidor");
+            e.printStackTrace();
+        }
         // TODO add your handling code here:
     }
 
