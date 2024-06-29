@@ -4,7 +4,13 @@
  */
 package GUI;
 
+import GUI.PopUp.AvisoPopUp;
+import GUI.PopUp.ErrorPopUp;
 import modelo.HttpServerApagarPC;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.Objects;
 
 /**
  *
@@ -26,8 +32,13 @@ public class Pantalla extends javax.swing.JFrame {
     public Pantalla() {
         initComponents();//inicio de componenetes
         setLocationRelativeTo(null);//pantalla centrada
-        setVisible(true);//una vez que se instancia ya se muestra
         setResizable(false);// no se puede agrandar la pantalla
+
+
+        ImageIcon imageIcon = new ImageIcon("src/main/resources/recursoIcono.png");
+        setIconImage(imageIcon.getImage());
+
+        setVisible(true);//una vez que se instancia ya se muestra
     }
 
     /**
