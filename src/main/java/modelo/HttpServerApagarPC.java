@@ -13,16 +13,17 @@ import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 import io.github.cdimascio.dotenv.Dotenv;
 
-public class HttpServerWithShutdown {
+public class HttpServerApagarPC {
     // Cargar las variables de entorno desde el archivo .env
     Dotenv dotenv = Dotenv.configure().directory("C:\\Users\\Gc\\Desktop\\programacion\\ApagarPCjava\\scriptApagarPC\\.env").load();
 
     // Obtener el valor de SERVER_IP y PORT desde las variables de entorno
-    String serverIp = dotenv.get("SERVER_IP");
-    int port = Integer.parseInt(dotenv.get("PORT"));
+    private String serverIp = dotenv.get("SERVER_IP");
+    private int port = Integer.parseInt(dotenv.get("PORT"));
+    private HttpServer server = null;
     public void iniciar() throws Exception {
 
-        HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
+        server = HttpServer.create(new InetSocketAddress(port), 0);
 
         // Manejador para la ruta raíz "/"
         server.createContext("/", new MyHandler());
@@ -32,18 +33,26 @@ public class HttpServerWithShutdown {
 
         server.setExecutor(null); // creates a default executor
         server.start();
-        System.out.println("Server started");
+        System.out.println("Servidor abierto");
         //tester();
     }
 
+    public void apagarServidor()
+    {
+        if(server != null)
+        {
+            server.stop(0);
+            System.out.println("Servidor cerrado");
+        }
+    }
     static class MyHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange t) throws IOException {
             String response = "Hello, this is the response from the server!";
             sendResponse(t, response);
         }
-    }
 
+    }
     static class ShutdownHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange t) throws IOException {
@@ -56,17 +65,18 @@ public class HttpServerWithShutdown {
             }
             sendResponse(t, response);
         }
-    }
 
+    }
     // Método para enviar la respuesta al cliente
+
     private static void sendResponse(HttpExchange t, String response) throws IOException {
         t.sendResponseHeaders(200, response.getBytes().length);
         OutputStream os = t.getResponseBody();
         os.write(response.getBytes());
         os.close();
     }
-
     // Método para apagar la computadora
+
     private static boolean shutdownComputer() {
         String shutdownCommand;
         String operatingSystem = System.getProperty("os.name").toLowerCase();

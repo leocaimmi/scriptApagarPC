@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class PopUp extends javax.swing.JDialog
+public class ErrorPopUp extends javax.swing.JDialog
 {
     //atributos
     private String mensajeError;
@@ -16,7 +16,7 @@ public class PopUp extends javax.swing.JDialog
 
     //constructor
 
-    public PopUp(java.awt.Frame parent, boolean modal, String mensajeError) {
+    public ErrorPopUp(java.awt.Frame parent, boolean modal, String mensajeError) {
         super(parent, "Error", modal);
         initComponents(mensajeError);
         setLocationRelativeTo(null);
