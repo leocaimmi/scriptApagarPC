@@ -35,7 +35,7 @@ public class Pantalla extends javax.swing.JFrame {
         setResizable(false);// no se puede agrandar la pantalla
 
 
-        ImageIcon imageIcon = new ImageIcon("src/main/resources/recursoIcono.png");
+        ImageIcon imageIcon = new ImageIcon("src/main/resources/recursoIconoPNG.png");
         setIconImage(imageIcon.getImage());
 
         setVisible(true);//una vez que se instancia ya se muestra
