@@ -131,7 +131,14 @@ public class Pantalla extends javax.swing.JFrame {
         try
         {
             httpServidor.iniciar();
-            AvisoPopUp popUp = new AvisoPopUp(this,true,"El servidor se encuentra encendido");
+            if(httpServidor == null)
+            {
+                ErrorPopUp popUp = new ErrorPopUp(this,true,"El servidor no pudo abrirse");
+            }
+            else
+            {
+                AvisoPopUp popUp = new AvisoPopUp(this,true,"El servidor se encuentra encendido");
+            }
         } catch (Exception e)
         {
             ErrorPopUp popUp = new ErrorPopUp(this,true,e.getMessage()+" No se pudo abrir el servidor");
@@ -144,6 +151,7 @@ public class Pantalla extends javax.swing.JFrame {
         {
             httpServidor.apagarServidor();
             AvisoPopUp popUp = new AvisoPopUp(this,true,"El servidor se ha cerrado correctamente");
+            httpServidor = null;
         }
         else
         {
