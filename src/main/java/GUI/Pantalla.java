@@ -131,12 +131,12 @@ public class Pantalla extends javax.swing.JFrame {
     private void jBotonONActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
         //si el boton se aprieta se abre el servidor http
-        httpServidor = new HttpServerApagarPC();
         String ipAddress =crearArchivoENVConIPDelDispositivo();//obtengo la ip del dispositivo y creo un .env con el mismo y con el puerto
         AvisoPopUp popUpIP = new AvisoPopUp(this,true,"Su IP es: "+ipAddress);//le muestro al usuario su ip para que pueda apagar su pc
         try
         {
-            httpServidor.iniciar();
+            httpServidor = new HttpServerApagarPC();
+            //httpServidor.iniciar();
             if(httpServidor == null)
             {
                 ErrorPopUp popUp = new ErrorPopUp(this,true,"El servidor no pudo abrirse");
@@ -147,6 +147,8 @@ public class Pantalla extends javax.swing.JFrame {
             }
         } catch (Exception e)
         {
+            httpServidor = null;//si ocurre una exception lo detengo para que pueda intentar abrirse correctamente
+
             ErrorPopUp popUp = new ErrorPopUp(this,true,e.getMessage()+" No se pudo abrir el servidor");
         }
     }

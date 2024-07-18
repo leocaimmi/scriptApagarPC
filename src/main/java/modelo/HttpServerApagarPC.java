@@ -21,6 +21,16 @@ public class HttpServerApagarPC {
     private String serverIp = dotenv.get("SERVER_IP");
     private int port = Integer.parseInt(dotenv.get("PORT"));
     private HttpServer server = null;
+    public HttpServerApagarPC() throws Exception
+    {
+        iniciar();
+    }
+
+    public HttpServer getServer()
+    {
+        return server;
+    }
+
     public void iniciar() throws Exception {
 
         server = HttpServer.create(new InetSocketAddress(port), 0);
@@ -42,6 +52,7 @@ public class HttpServerApagarPC {
         if(server != null)
         {
             server.stop(0);
+            server = null;
             System.out.println("Servidor cerrado");
         }
     }
