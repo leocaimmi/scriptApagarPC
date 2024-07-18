@@ -35,18 +35,14 @@ public class Pantalla extends javax.swing.JFrame {
      */
     public Pantalla()
     {
-        String ipAddress =crearArchivoENVConIPDelDispositivo();//obtengo la ip del dispositivo y creo un .env con el mismo y con el puerto
-
         initComponents();//inicio de componenetes
         setLocationRelativeTo(null);//pantalla centrada
         setResizable(false);// no se puede agrandar la pantalla
-
 
         ImageIcon imageIcon = new ImageIcon("src/main/resources/recursoIconoPNG.png");
         setIconImage(imageIcon.getImage());
 
         setVisible(true);//una vez que se instancia ya se muestra
-        AvisoPopUp popUp = new AvisoPopUp(this,true,"Su IP es: "+ipAddress);//le muestro al usuario su ip para que pueda apagar su pc
     }
 
     /**
@@ -136,6 +132,8 @@ public class Pantalla extends javax.swing.JFrame {
         // TODO add your handling code here:
         //si el boton se aprieta se abre el servidor http
         httpServidor = new HttpServerApagarPC();
+        String ipAddress =crearArchivoENVConIPDelDispositivo();//obtengo la ip del dispositivo y creo un .env con el mismo y con el puerto
+        AvisoPopUp popUpIP = new AvisoPopUp(this,true,"Su IP es: "+ipAddress);//le muestro al usuario su ip para que pueda apagar su pc
         try
         {
             httpServidor.iniciar();
@@ -158,8 +156,8 @@ public class Pantalla extends javax.swing.JFrame {
         if(httpServidor!=null)
         {
             httpServidor.apagarServidor();
-            AvisoPopUp popUp = new AvisoPopUp(this,true,"El servidor se ha cerrado correctamente");
             httpServidor = null;
+            AvisoPopUp popUp = new AvisoPopUp(this,true,"El servidor se ha cerrado correctamente");
         }
         else
         {
