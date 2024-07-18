@@ -35,7 +35,7 @@ public class Pantalla extends javax.swing.JFrame {
      */
     public Pantalla()
     {
-        crearArchivoENVConIPDelDispositivo();//obtengo la ip del dispositivo y creo un .env con el mismo y con el puerto
+        String ipAddress =crearArchivoENVConIPDelDispositivo();//obtengo la ip del dispositivo y creo un .env con el mismo y con el puerto
 
         initComponents();//inicio de componenetes
         setLocationRelativeTo(null);//pantalla centrada
@@ -46,6 +46,7 @@ public class Pantalla extends javax.swing.JFrame {
         setIconImage(imageIcon.getImage());
 
         setVisible(true);//una vez que se instancia ya se muestra
+        AvisoPopUp popUp = new AvisoPopUp(this,true,"Su IP es: "+ipAddress);//le muestro al usuario su ip para que pueda apagar su pc
     }
 
     /**
@@ -166,17 +167,18 @@ public class Pantalla extends javax.swing.JFrame {
         }
     }
 
-    private void crearArchivoENVConIPDelDispositivo()
+    private String crearArchivoENVConIPDelDispositivo()
     {
         // Obtener la dirección IPv4
         InetAddress ip = null;
         FileWriter writer = null;
+        String ipAddress = null;
         try
         {
             ip = InetAddress.getLocalHost();
             String puerto = "54321";
             // Escribo la ip en el .env y el puerto para hostear
-            String ipAddress = ip.getHostAddress();
+             ipAddress = ip.getHostAddress();
             writer = new FileWriter(".env");
             writer.write("SERVER_IP=" + ipAddress + "\n");
             writer.write("PORT=" + puerto + "\n");
@@ -196,7 +198,7 @@ public class Pantalla extends javax.swing.JFrame {
             {
               ErrorPopUp popUp = new ErrorPopUp(this,true,"No se pudo cerrar exitosamente el archivo .env");
             }
-        }
+        }return ipAddress;
     }
 
 
