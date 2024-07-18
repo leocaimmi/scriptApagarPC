@@ -136,7 +136,7 @@ public class Pantalla extends javax.swing.JFrame {
         try
         {
             httpServidor = new HttpServerApagarPC();
-            //httpServidor.iniciar();
+
             if(httpServidor == null)
             {
                 ErrorPopUp popUp = new ErrorPopUp(this,true,"El servidor no pudo abrirse");
@@ -147,9 +147,7 @@ public class Pantalla extends javax.swing.JFrame {
             }
         } catch (Exception e)
         {
-            httpServidor = null;//si ocurre una exception lo detengo para que pueda intentar abrirse correctamente
-
-            ErrorPopUp popUp = new ErrorPopUp(this,true,e.getMessage()+" No se pudo abrir el servidor");
+            AvisoPopUp popUp = new AvisoPopUp(this,true,e.getMessage()+" El servidor ya se encuentra abierto");
         }
     }
 
