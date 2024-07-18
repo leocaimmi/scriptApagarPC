@@ -10,6 +10,10 @@ import modelo.HttpServerApagarPC;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Objects;
 
 /**
@@ -29,7 +33,10 @@ public class Pantalla extends javax.swing.JFrame {
     /**
      * Creates new form Pantalla
      */
-    public Pantalla() {
+    public Pantalla()
+    {
+        crearArchivoENVConIPDelDispositivo();//obtengo la ip del dispositivo y creo un .env con el mismo y con el puerto
+
         initComponents();//inicio de componenetes
         setLocationRelativeTo(null);//pantalla centrada
         setResizable(false);// no se puede agrandar la pantalla
@@ -156,6 +163,39 @@ public class Pantalla extends javax.swing.JFrame {
         else
         {
             ErrorPopUp popUp = new ErrorPopUp(this,true,"El servidor no se encuentra abierto");
+        }
+    }
+
+    private void crearArchivoENVConIPDelDispositivo()
+    {
+        // Obtener la dirección IPv4
+        InetAddress ip = null;
+        FileWriter writer = null;
+        try
+        {
+            ip = InetAddress.getLocalHost();
+            String puerto = "54321";
+            // Escribo la ip en el .env y el puerto para hostear
+            String ipAddress = ip.getHostAddress();
+            writer = new FileWriter(".env");
+            writer.write("SERVER_IP=" + ipAddress + "\n");
+            writer.write("PORT=" + puerto + "\n");
+
+        }catch (UnknownHostException e)
+        {
+           ErrorPopUp popUp = new ErrorPopUp(this,true,"No se pudo encontrar la IP del dispositivo");
+        } catch (IOException e)
+        {
+            ErrorPopUp popUp = new ErrorPopUp(this,true,"No se pudo escribir el archivo con el root");
+        } finally
+        {
+            try
+            {
+                writer.close();
+            } catch (IOException e)
+            {
+              ErrorPopUp popUp = new ErrorPopUp(this,true,"No se pudo cerrar exitosamente el archivo .env");
+            }
         }
     }
 
